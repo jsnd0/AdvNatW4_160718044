@@ -35,6 +35,6 @@ class ListViewModel:ViewModel() {
         val studentList = arrayListOf<Student>(student1, student2, student3)
         studentsLD.value = studentList
         loadingErrorLD.value = false
-        loadingDoneLD.value = false
+        loadingDoneLD.value = true
     }
 }
