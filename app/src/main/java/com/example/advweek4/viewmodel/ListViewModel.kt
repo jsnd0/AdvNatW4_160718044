@@ -58,7 +58,7 @@ class   ListViewModel(application: Application):AndroidViewModel(application) {
                 val sType = object : TypeToken<List<Student>>() {}.type
                 val result = Gson().fromJson<List<Student>>(response, sType)
                 studentsLD.value = result
-                loadingDoneLD.value = false
+                loadingDoneLD.value = true
                 Log.d("showvolley", response.toString())
             }, {
                 loadingErrorLD.value = true
