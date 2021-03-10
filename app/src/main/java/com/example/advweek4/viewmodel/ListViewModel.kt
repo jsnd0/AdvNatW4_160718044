@@ -11,6 +11,8 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.advweek4.model.Student
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class   ListViewModel(application: Application):AndroidViewModel(application) {
     val studentsLD = MutableLiveData<List<Student>>()
@@ -53,6 +55,9 @@ class   ListViewModel(application: Application):AndroidViewModel(application) {
         val url = "http://adv.jitusolution.com/student.php"
         val stringRequest = StringRequest(Request.Method.GET, url,
             { response ->
+                val sType = object : TypeToken<List<Student>>() {}.type
+                val result = Gson().fromJson<List<Student>>(response, sType)
+                studentsLD.value = result
                 loadingDoneLD.value = false
                 Log.d("showvolley", response.toString())
             }, {
@@ -61,5 +66,12 @@ class   ListViewModel(application: Application):AndroidViewModel(application) {
                 Log.d("showvolley", it.toString())
             }
         )
+        stringRequest.tag = TAG
+        queue?.add(stringRequest)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        queue?.cancelAll(TAG)
     }
 }
