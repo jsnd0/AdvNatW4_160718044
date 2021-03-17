@@ -32,10 +32,11 @@ class StudentListAdapter (val studentList:ArrayList<Student>): RecyclerView.Adap
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
         holder.view.txtId.text = studentList[position].id
         holder.view.txtName.text = studentList[position].name
-        holder.view.imageView.loadImage(studentList[position].photoUrl,holder.view.progressBar)
+        holder.view.imageView.loadImage(studentList[position].photoUrl, holder.view.progressBar)
+
 
         holder.view.btnDetail.setOnClickListener {
-            val action = StudentListFragmentDirections.actionStudentDetail()
+            val action = StudentListFragmentDirections.actionStudentDetail(studentList[position].id.toString())
             Navigation.findNavController(it).navigate(action)
         }
     }

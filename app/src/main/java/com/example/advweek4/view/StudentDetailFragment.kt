@@ -1,6 +1,7 @@
 package com.example.advweek4.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.advweek4.R
 import com.example.advweek4.viewmodel.DetailViewModel
 import kotlinx.android.synthetic.main.fragment_student_detail.*
+import kotlinx.android.synthetic.main.student_list_item.view.*
+import util.loadImage
 
 
 class StudentDetailFragment : Fragment() {
@@ -25,9 +28,9 @@ class StudentDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val studentId = StudentDetailFragmentArgs.fromBundle(requireArguments()).studentId
         viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
-        viewModel.fetch()
+        viewModel.fetch(studentId)
 
         observeViewModel()
     }
@@ -40,6 +43,7 @@ class StudentDetailFragment : Fragment() {
                 txtName.setText(viewModel.studentLD.value?.name.toString())
                 txtDob.setText(viewModel.studentLD.value?.dob.toString())
                 txtPhone.setText(viewModel.studentLD.value?.phone.toString())
+                imageView2.loadImage(viewModel.studentLD.value?.photoUrl, progressBarD)
             })
     }
 }
