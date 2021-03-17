@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.advweek4.R
 import com.example.advweek4.model.Student
 import kotlinx.android.synthetic.main.student_list_item.view.*
+import util.loadImage
 
 class StudentListAdapter (val studentList:ArrayList<Student>): RecyclerView.Adapter<StudentListAdapter.StudentViewHolder>(){
     class StudentViewHolder(val view:View):RecyclerView.ViewHolder(view)
@@ -31,6 +32,7 @@ class StudentListAdapter (val studentList:ArrayList<Student>): RecyclerView.Adap
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
         holder.view.txtId.text = studentList[position].id
         holder.view.txtName.text = studentList[position].name
+        holder.view.imageView.loadImage(studentList[position].photoUrl,holder.view.progressBar)
 
         holder.view.btnDetail.setOnClickListener {
             val action = StudentListFragmentDirections.actionStudentDetail()
