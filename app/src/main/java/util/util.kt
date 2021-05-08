@@ -3,15 +3,21 @@ package util
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.media.Image
 import android.os.Build
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.databinding.BindingAdapter
 import com.example.advweek4.R
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.lang.Exception
 
+@BindingAdapter("android:imageUrl","android:progressBar")
+fun loadImageURL(view:ImageView,url: String,pb:ProgressBar) {
+    view.loadImage(url, pb)
+}
 
 fun ImageView.loadImage(url: String?, progressBar: ProgressBar){
 Picasso.get()
